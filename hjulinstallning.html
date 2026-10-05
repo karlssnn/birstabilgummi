@@ -828,12 +828,18 @@ var MONS=['jan','feb','mars','apr','maj','juni','juli','aug','sep','okt','nov','
       .catch(function(){ status.textContent='Det gick inte att boka just nu. Ring oss på '+TEL+'.'; send.disabled=false; });
   });
 
-  /* Hämta redan bokade tider */
-  function start(){ renderDays(); }
+  /* Visa dagar direkt - väntar inte på nätverket.
+     Bokade tider hämtas i bakgrunden och dagarna/tiderna ritas om när de kommer. */
+  renderDays();
   if(BOOKING_URL){
-    fetch(BOOKING_URL+'?action=booked').then(function(r){return r.json();})
-      .then(function(j){ booked=j||{}; }).catch(function(){}).then(start);
-  } else { start(); }
+    var bookedCtrl=(window.AbortController?new AbortController():null);
+    var bookedTimeout=bookedCtrl?setTimeout(function(){ bookedCtrl.abort(); },10000):null;
+    fetch(BOOKING_URL+'?action=booked', bookedCtrl?{signal:bookedCtrl.signal}:{})
+      .then(function(r){return r.json();})
+      .then(function(j){ booked=j||{}; renderDays(); renderTimes(); })
+      .catch(function(){})
+      .then(function(){ if(bookedTimeout) clearTimeout(bookedTimeout); });
+  }
 })();
 
 /* ===== Data direkt från Google Kalkylark via Apps Script (API_URL) ===== */
