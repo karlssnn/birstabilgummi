@@ -471,6 +471,9 @@ body.modal-open{overflow:hidden}
 .modal-skip{margin-top:12px}
 .modal-close{position:absolute;top:8px;right:8px;width:46px;height:46px;border:0;border-radius:50%;background:transparent;color:var(--ink);font-size:2.2rem;line-height:1;cursor:pointer}
 .modal-close:hover{background:rgba(0,0,0,.08)}
+.modal-card form{text-align:left}
+.modal-card .field{max-width:340px;margin-left:auto;margin-right:auto}
+.modal-card .field textarea{max-width:340px}
 
 .fine{font-size:.9rem;color:var(--muted);margin:12px 0 0;text-align:left}
 .fine a{color:var(--red);font-weight:600}
@@ -617,11 +620,35 @@ html,body{background:#fff;color:#1d1f21}</style>
         </div>
         <div class="acts">
           <a class="btn" href="tel:+4660568888">Ring 060-56 88 88</a>
-          <a class="btn btn-light" href="mailto:info@birstabilgummi.se?subject=F%C3%B6rfr%C3%A5gan%20d%C3%A4ck">Mejla oss</a>
+          <button class="btn btn-light" type="button" id="openMail">Mejla oss</button>
         </div>
       </div>
     </div>
   </section>
+
+  <div class="modal" id="mailModal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mailModalTitle">
+      <button class="modal-close" type="button" data-close aria-label="Stäng">&times;</button>
+      <h3 id="mailModalTitle">Mejla oss</h3>
+      <p class="lead">Skriv din fråga så öppnar vi ett mejl till oss med allt ifyllt.</p>
+      <form id="mailForm" novalidate>
+        <div class="field">
+          <label for="mName">Namn</label>
+          <input id="mName" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="mEmail">Din e-post</label>
+          <input id="mEmail" name="email" type="email" autocomplete="email" required>
+          <p class="err" id="mEmailErr"></p>
+        </div>
+        <div class="field">
+          <label for="mMsg">Meddelande</label>
+          <textarea id="mMsg" name="message" required></textarea>
+        </div>
+        <button class="btn" type="submit" id="mSend">Öppna mejl</button>
+      </form>
+    </div>
+  </div>
 </main>
 
 <footer>
@@ -1103,6 +1130,50 @@ function orderForm(dim){
       }
     }
   }).catch(function(){});
+})();
+
+/* ===== Mejla oss: ruta med formulär som öppnar ifyllt mejl ===== */
+(function(){
+  var modal=document.getElementById('mailModal'), open_=document.getElementById('openMail');
+  if(!modal||!open_) return;
+  var f=document.getElementById('mailForm'), name=document.getElementById('mName'),
+      email=document.getElementById('mEmail'), msg=document.getElementById('mMsg'),
+      emailErr=document.getElementById('mEmailErr'), last=null;
+  function focusables(){ return Array.prototype.slice.call(modal.querySelectorAll('button,input,textarea,a[href]')).filter(function(x){ return !x.hidden&&x.offsetParent!==null; }); }
+  function open(){
+    last=document.activeElement;
+    modal.hidden=false; document.body.classList.add('modal-open');
+    name.focus();
+  }
+  function close(){
+    modal.hidden=true; document.body.classList.remove('modal-open');
+    if(last&&last.focus){ try{ last.focus(); }catch(e){} }
+  }
+  open_.addEventListener('click',open);
+  modal.addEventListener('click',function(e){
+    if(e.target===modal||e.target.closest('[data-close]')) close();
+  });
+  document.addEventListener('keydown',function(e){
+    if(modal.hidden) return;
+    if(e.key==='Escape'){ close(); return; }
+    if(e.key==='Tab'){
+      var fs=focusables(); if(!fs.length) return;
+      var first=fs[0], lastEl=fs[fs.length-1];
+      if(e.shiftKey&&document.activeElement===first){ e.preventDefault(); lastEl.focus(); }
+      else if(!e.shiftKey&&document.activeElement===lastEl){ e.preventDefault(); first.focus(); }
+    }
+  });
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    emailErr.textContent='';
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){
+      emailErr.textContent='Skriv en giltig e-postadress.'; email.focus(); return;
+    }
+    var body='Namn: '+name.value.trim()+'\nE-post: '+email.value.trim()+'\n\nMeddelande:\n'+msg.value.trim();
+    window.location.href=mailHref('Förfrågan däck',body);
+    close();
+    f.reset();
+  });
 })();
 
 /* Förhandsvisning: länkar mellan sidor. Töms när sidan läggs ut på riktigt. */
