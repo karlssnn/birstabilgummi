@@ -293,7 +293,10 @@ table.prices{width:100%;border-collapse:collapse;min-width:420px}
 .step[hidden]{display:none}
 .step h2{font-size:1.9rem;margin:0 0 14px;display:flex;align-items:center;gap:12px}
 .step .n{flex:none;display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--red);color:#fff;font:800 1.3rem "Barlow Condensed",Arial,sans-serif}
-.days,.times{display:flex;flex-wrap:wrap;gap:8px}
+.days{display:flex;flex-direction:column;gap:16px}
+.day-week{display:flex;flex-direction:column;gap:8px}
+.week-label{font-weight:700;color:var(--muted);font-size:.9rem;text-transform:uppercase;letter-spacing:.03em}
+.day-row,.times{display:flex;flex-wrap:wrap;gap:8px}
 .pill{font:600 1.05rem Barlow,Arial,sans-serif;padding:9px 14px;border-radius:8px;border:2px solid var(--ink);background:var(--bg);color:var(--ink);cursor:pointer;min-width:84px;text-align:center;line-height:1.25}
 .pill small{display:block;font-weight:500;font-size:.88rem;color:var(--muted)}
 .pill:hover:not(:disabled){background:var(--panel)}
@@ -536,11 +539,13 @@ html,body{background:#fff;color:#1d1f21}</style>
         <div id="flow">
           <div class="step" id="stepDay">
             <h2><span class="n">1</span>Välj dag</h2>
+            <p class="lead">Klicka på en dag som passar, sen visar vi lediga tider.</p>
             <div class="days" id="days" role="group" aria-label="Välj dag"></div>
           </div>
 
           <div class="step" id="stepTime" hidden>
             <h2><span class="n">2</span>Välj tid</h2>
+            <p class="lead" id="timeFor"></p>
             <div class="times" id="times" role="group" aria-label="Välj tid"></div>
           </div>
 
@@ -687,6 +692,7 @@ var MONS=['jan','feb','mars','apr','maj','juni','juli','aug','sep','okt','nov','
 (function(){
   var daysBox=document.getElementById('days'), timesBox=document.getElementById('times'),
       stepTime=document.getElementById('stepTime'), stepForm=document.getElementById('stepForm'),
+      timeFor=document.getElementById('timeFor'),
       chosen=document.getElementById('chosen'), phone=document.getElementById('phone'), reg=document.getElementById('reg'),
       phoneErr=document.getElementById('phoneErr'), regErr=document.getElementById('regErr'),
       status=document.getElementById('status'), send=document.getElementById('send'),
@@ -698,6 +704,13 @@ var MONS=['jan','feb','mars','apr','maj','juni','juli','aug','sep','okt','nov','
   function longDate(s){ var d=parse(s); return DAYN[d.getDay()]+' '+d.getDate()+' '+MONF[d.getMonth()]; }
   function shortDate(s){ var d=parse(s); return DAYS[d.getDay()]+' '+d.getDate()+' '+MONS[d.getMonth()]; }
   function label(t){ return t.replace(':','.'); }
+  function mondayOf(d){ var x=new Date(d.getFullYear(),d.getMonth(),d.getDate()); var dow=x.getDay(); x.setDate(x.getDate()+(dow===0?-6:1-dow)); return x; }
+  function weekLabel(s){
+    var diff=Math.round((mondayOf(parse(s))-mondayOf(new Date()))/(7*24*3600*1000));
+    if(diff===0) return 'Denna vecka';
+    if(diff===1) return 'Nästa vecka';
+    return 'Om '+diff+' veckor';
+  }
 
   function bookableDays(){
     var out=[], now=new Date(), d=new Date(now.getFullYear(),now.getMonth(),now.getDate());
@@ -719,12 +732,22 @@ var MONS=['jan','feb','mars','apr','maj','juni','juli','aug','sep','okt','nov','
 
   function renderDays(){
     daysBox.textContent='';
+    var curLabel=null, row=null;
     bookableDays().forEach(function(s){
+      var lbl=weekLabel(s);
+      if(lbl!==curLabel){
+        curLabel=lbl;
+        var group=el('div','day-week');
+        group.appendChild(el('div','week-label',lbl));
+        row=el('div','day-row');
+        group.appendChild(row);
+        daysBox.appendChild(group);
+      }
       var d=parse(s), b=el('button','pill',DAYS[d.getDay()]+' '+d.getDate()); b.type='button';
       b.appendChild(el('small','',MONS[d.getMonth()]));
       b.setAttribute('aria-pressed',s===sel.date);
       b.addEventListener('click',function(){ pickDay(s); });
-      daysBox.appendChild(b);
+      row.appendChild(b);
     });
   }
   function renderTimes(){
@@ -743,6 +766,7 @@ var MONS=['jan','feb','mars','apr','maj','juni','juli','aug','sep','okt','nov','
     sel.date=s; sel.time=null;
     stepForm.hidden=true; status.textContent='';
     renderDays(); renderTimes();
+    timeFor.textContent='Lediga tider '+longDate(s)+':';
     stepTime.hidden=false;
     stepTime.scrollIntoView({behavior:'smooth',block:'nearest'});
   }
