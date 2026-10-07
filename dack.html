@@ -1163,7 +1163,14 @@ function orderForm(dim){
         out.push({brand:String(r.brand||'').trim(),dim:dim,price:price,status:st,type:tp,digits:dim.replace(/\D/g,'')});
       });
       if(out.length){
-        DACK=out;
+        /* Lägg till/uppdatera med arkets rader istället för att ersätta hela listan,
+           så däck som bara finns hårdkodade på sidan (t.ex. inte inlagda i arket än) inte försvinner. */
+        var merged=DACK.slice();
+        out.forEach(function(sheetRow){
+          var i=merged.findIndex(function(r){ return r.dim===sheetRow.dim&&r.type===sheetRow.type&&r.brand===sheetRow.brand; });
+          if(i>-1) merged[i]=sheetRow; else merged.push(sheetRow);
+        });
+        DACK=merged;
         if(window.onDackLoaded) window.onDackLoaded();
         if(typeof SEASON!=='undefined' && SEASON && window.setSeason) setSeason(SEASON,true);
       }
