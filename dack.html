@@ -833,14 +833,54 @@ var DACK_DATA = [
   ["Linglong Gripmaster","245/45R20",1650],
   ["Linglong Gripmaster","235/45R20",1650],
   ["Linglong Gripmaster","255/40R20",1650],
-  ["Blacklion S5 SUV","255/45R20",1750]
+  ["Blacklion S5 SUV","255/45R20",1750],
+
+  ["Budget","155/80R13",1050,"Vinter"],
+  ["Linglong Wintergrip 2","175/65R14",1250,"Vinter"],
+  ["Linglong Wintergrip 2","185/60R15",1300,"Vinter"],
+  ["Linglong Wintergrip 2","185/65R15",1300,"Vinter"],
+  ["Pirelli Ice Zero 2","185/65R15",1750,"Vinter"],
+  ["Linglong Wintergrip 2","195/65R15",1300,"Vinter"],
+  ["Pirelli Ice Zero 2","195/65R15",1750,"Vinter"],
+  ["Linglong Wintergrip 2","205/55R16",1400,"Vinter"],
+  ["Pirelli","205/55R16",2050,"Vinter"],
+  ["Nokian Hakka 10","205/55R16",2325,"Vinter"],
+  ["Linglong Wintergrip 2","205/60R16",1450,"Vinter"],
+  ["Nokian Hakka 10","205/60R16",2325,"Vinter"],
+  ["Pirelli Ice Zero 2","215/60R16",2200,"Vinter"],
+  ["Linglong Wintergrip 2","215/65R16",1550,"Vinter"],
+  ["Pirelli Ice Zero 2","215/65R16",2200,"Vinter"],
+  ["Linglong Wintergrip 2","225/45R17",1500,"Vinter"],
+  ["Linglong Wintergrip 2","225/50R17",1575,"Vinter"],
+  ["Pirelli Ice Zero 2","225/50R17",2525,"Vinter"],
+  ["Linglong Wintergrip 2","215/55R17",1650,"Vinter"],
+  ["Pirelli Ice Zero 2","215/55R17",2550,"Vinter"],
+  ["Linglong Wintergrip 2","215/60R17",1650,"Vinter"],
+  ["Pirelli Ice Zero 2","215/60R17",2625,"Vinter"],
+  ["Linglong Wintergrip 2","225/55R17",1650,"Vinter"],
+  ["Pirelli Ice Zero 2","225/55R17",2625,"Vinter"],
+  ["Linglong Wintergrip 2","225/60R17",1650,"Vinter"],
+  ["Linglong Wintergrip 2","225/65R17",1700,"Vinter"],
+  ["Pirelli Ice Zero 2","225/65R17",2850,"Vinter"],
+  ["Linglong Wintergrip 2","235/65R17",1750,"Vinter"],
+  ["Pirelli Ice Zero 2","235/65R17",2900,"Vinter"],
+  ["Pirelli Ice Zero 2","235/45R18",3025,"Vinter"],
+  ["Budget","245/45R18",1750,"Vinter"],
+  ["Pirelli Ice Zero 2","245/45R18",3025,"Vinter"],
+  ["Linglong Wintergrip 2","235/50R18",1750,"Vinter"],
+  ["Linglong Wintergrip 2","235/55R18",1750,"Vinter"],
+  ["Pirelli Ice Zero 2","235/55R18",3100,"Vinter"],
+  ["Pirelli Ice Zero 2","215/55R18",2750,"Vinter"],
+  ["Pirelli Ice Zero 2","225/60R18",2950,"Vinter"],
+  ["Linglong Wintergrip 2","235/60R18",1750,"Vinter"],
+  ["Pirelli Ice Zero 2","235/60R18",2950,"Vinter"]
 ];
 var DACK_CSV_URL = "";
 var TEL = "060-56 88 88", TELHREF = "tel:+4660568888", MAIL = "info@birstabilgummi.se";
 
 function toRows(arr){
   return arr.map(function(r){
-    return {brand:r[0],dim:r[1],price:r[2],status:'hemma',type:'Sommar',digits:r[1].replace(/\D/g,'')};
+    return {brand:r[0],dim:r[1],price:r[2],status:'hemma',type:r[3]||'Sommar',digits:r[1].replace(/\D/g,'')};
   });
 }
 var DACK = toRows(DACK_DATA);
