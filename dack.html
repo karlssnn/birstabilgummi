@@ -936,6 +936,13 @@ function showResults(d){
     sec.scrollIntoView({behavior:'smooth',block:'start'});
     return;
   }
+  var width=+d.slice(0,3), aspect=+d.slice(3,5), rim=d.length>=7?+d.slice(5,7):null;
+  if(width<125||width>335||aspect<25||aspect>85||(rim!==null&&(rim<13||rim>22))){
+    title.textContent='Det där ser inte ut som en riktig däckdimension';
+    body.appendChild(el('p','res-note','Kontrollera bredd (t.ex. 205), profil (t.ex. 55) och tum (t.ex. 16). Ring oss på '+TEL+' om du är osäker på vad som står på ditt däck.'));
+    sec.scrollIntoView({behavior:'smooth',block:'start'});
+    return;
+  }
   var dim=d.slice(0,3)+'/'+d.slice(3,5)+(d.length>=7?'R'+d.slice(5,7):'');
   title.textContent=(SEASON==='Vinter'?'Vinterdäck':(SEASON==='Sommar'?'Sommardäck':'Däck'))+' i '+dim;
   var res=searchTyres(d);
