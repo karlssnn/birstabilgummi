@@ -558,7 +558,7 @@ html,body{background:#fff;color:#1d1f21}</style>
           <input type="hidden" name="q" id="dimq">
           <button class="btn" type="submit">Sök</button>
         </div>
-        <p class="hint" id="dimhint">Skriv bara siffrorna, så sätter vi snedstrecken. Dimensionen står på däckets sida, t.ex. 205/55 R16.</p>
+        <p class="hint" id="dimhint">Skriv bara siffrorna, så sätter vi snedstrecken. Dimensionen står på däckets sida, t.ex. 205/55R16.</p>
         <p class="alt">Vet du inte? <a href="tel:+4660568888">Ring 060-56 88 88</a> eller <a href="mailto:info@birstabilgummi.se">mejla oss</a>, så hjälper vi dig.</p>
       </form>
       </div>
@@ -569,6 +569,20 @@ html,body{background:#fff;color:#1d1f21}</style>
     <div class="wrap">
       <h2 id="resTitle" tabindex="-1"></h2>
       <div id="resBody"></div>
+    </div>
+  </section>
+
+  <section id="lista" hidden>
+    <div class="wrap">
+      <h2 id="listH">Alla däck i prislistan</h2>
+      <p class="lead">Här ligger storsäljarna. Vi har många fler storlekar på lager och kan beställa nästan alla, så hör av dig om du inte hittar din.</p>
+      <div class="filters" id="filters" role="group" aria-label="Välj fälgstorlek"></div>
+      <div class="tbl-wrap">
+        <table class="prices">
+          <thead><tr><th scope="col">Märke</th><th scope="col">Dimension</th><th scope="col" class="p">Pris per däck</th></tr></thead>
+          <tbody id="priceBody"></tbody>
+        </table>
+      </div>
     </div>
   </section>
 
@@ -593,20 +607,6 @@ html,body{background:#fff;color:#1d1f21}</style>
       </ul>
       <p class="more">Vi har även Westlake, Sailun och Triangle.</p>
       <p class="more">Vi har sålt budgetdäcken i många år och har bara bra erfarenhet av dem.</p>
-    </div>
-  </section>
-
-  <section id="lista" hidden>
-    <div class="wrap">
-      <h2 id="listH">Alla däck i prislistan</h2>
-      <p class="lead">Här ligger storsäljarna. Vi har många fler storlekar på lager och kan beställa nästan alla, så hör av dig om du inte hittar din.</p>
-      <div class="filters" id="filters" role="group" aria-label="Välj fälgstorlek"></div>
-      <div class="tbl-wrap">
-        <table class="prices">
-          <thead><tr><th scope="col">Märke</th><th scope="col">Dimension</th><th scope="col" class="p">Pris per däck</th></tr></thead>
-          <tbody id="priceBody"></tbody>
-        </table>
-      </div>
     </div>
   </section>
 
@@ -933,7 +933,7 @@ function showResults(d){
 
   if(d.length<5){
     title.textContent='Skriv hela dimensionen';
-    body.appendChild(el('p','res-note','Fyll i bredd, profil och tum, t.ex. 205/55/16, så visar vi vilka däck vi har.'));
+    body.appendChild(el('p','res-note','Fyll i bredd, profil och tum, t.ex. 205/55R16, så visar vi vilka däck vi har.'));
     sec.scrollIntoView({behavior:'smooth',block:'start'});
     return;
   }
