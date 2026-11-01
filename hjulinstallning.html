@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="color-scheme" content="light">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Boka hjulinställning – Birsta Bilgummi</title>
-<meta name="description" content="Boka tid för hjulinställning hos Birsta Bilgummi i Sundsbruk. Välj dag och tid online.">
+<title>Hjulinställning – Birsta Bilgummi</title>
+<meta name="description" content="Hjulinställning hos Birsta Bilgummi i Sundsbruk. Ring eller mejla oss så bokar vi in en tid.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
@@ -318,6 +318,7 @@ table.prices{width:100%;border-collapse:collapse;min-width:420px}
 .done .big{font-weight:600;font-size:1.25rem;color:#fff}
 .alt-call{margin:18px 0 0;color:var(--muted)}
 .alt-call a{color:var(--red);font-weight:600}
+.alt-call a.btn{color:#fff}
 .info-cols{display:grid;grid-template-columns:1fr 1fr;gap:40px}
 @media (max-width:760px){.info-cols{grid-template-columns:1fr}}
 .info-cols h2{font-size:2.2rem}
@@ -488,8 +489,8 @@ html,body{background:#fff;color:#1d1f21}</style>
 <meta property="og:type" content="website">
 <meta property="og:locale" content="sv_SE">
 <meta property="og:site_name" content="Birsta Bilgummi">
-<meta property="og:title" content="Boka hjulinställning – Birsta Bilgummi">
-<meta property="og:description" content="Boka tid för hjulinställning hos Birsta Bilgummi i Sundsbruk. Välj dag och tid online.">
+<meta property="og:title" content="Hjulinställning – Birsta Bilgummi">
+<meta property="og:description" content="Hjulinställning hos Birsta Bilgummi i Sundsbruk. Ring eller mejla oss så bokar vi in en tid.">
 <script src="config.js"></script>
 </head>
 <body>
@@ -518,9 +519,9 @@ html,body{background:#fff;color:#1d1f21}</style>
     <div class="wrap">
       <div>
         <h1 class="fit-line" data-max="86">Hjulinställning</h1>
-        <p class="sub">Drar bilen åt ena hållet, eller slits däcken ojämnt? Boka din tid här.</p>
+        <p class="sub">Drar bilen åt ena hållet, eller slits däcken ojämnt? Ring eller mejla oss så bokar vi in en tid.</p>
         <div class="price-tag" data-info="pris_hjulinstallning">Från 1 400 kr</div>
-        <p class="dropin"><b class="book">Boka tid</b><span>Hjulinställning görs på bokad tid. Välj dag och tid nedan.</span></p>
+        <p class="dropin"><b class="book">Ring oss</b><span>Hjulinställning bokar vi in tillsammans. Ring eller mejla, så hittar vi en tid.</span></p>
       </div>
     </div>
   </div>
@@ -528,44 +529,10 @@ html,body{background:#fff;color:#1d1f21}</style>
   <section class="book" id="boka">
     <div class="wrap">
       <div class="steps">
-        <div class="done" id="done" hidden tabindex="-1" aria-live="polite">
-          <h2 id="doneTitle"></h2>
-          <p class="big" id="doneWhen"></p>
-          <p id="doneInfo"></p>
-        </div>
-
-        <div id="flow">
-          <div class="step" id="stepDay">
-            <h2><span class="n">1</span>Välj dag</h2>
-            <p class="lead">Klicka på en dag som passar, sen visar vi lediga tider.</p>
-            <div class="days" id="days" role="group" aria-label="Välj dag"></div>
-          </div>
-
-          <div class="step" id="stepTime" hidden>
-            <h2><span class="n">2</span>Välj tid</h2>
-            <p class="lead" id="timeFor"></p>
-            <div class="times" id="times" role="group" aria-label="Välj tid"></div>
-          </div>
-
-          <form class="step" id="stepForm" hidden novalidate>
-            <h2><span class="n">3</span>Dina uppgifter</h2>
-            <p class="chosen" id="chosen"></p>
-            <div class="field">
-              <label for="phone">Telefonnummer</label>
-              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="070 123 45 67">
-              <p class="err" id="phoneErr" role="alert"></p>
-            </div>
-            <div class="field">
-              <label for="reg">Registreringsnummer på bilen</label>
-              <input id="reg" name="reg" class="reg" type="text" autocomplete="off" autocapitalize="characters" maxlength="7" placeholder="ABC 123">
-              <p class="err" id="regErr" role="alert"></p>
-            </div>
-            <button class="btn" type="submit" id="send">Boka tid</button>
-            <p class="status" id="status" role="status"></p>
-            <p class="fine">Genom att skicka godkänner du att vi sparar dina uppgifter för att kunna svara dig. <a href="integritet.html">Läs mer</a></p>
-          </form>
-        </div>
-        <p class="alt-call">Passar ingen tid? Ring oss på <a href="tel:+4660568888">060-56 88 88</a>.</p>
+        <h2>Boka hjulinställning</h2>
+        <p class="lead">Ring oss eller mejla, så bokar vi in en tid som passar dig.</p>
+        <p class="alt-call"><a class="btn" href="tel:+4660568888">Ring 060-56 88 88</a></p>
+        <p class="alt-call">Eller mejla <a href="mailto:info@birstabilgummi.se?subject=Boka%20hjulinst%C3%A4llning">info@birstabilgummi.se</a>, så hör vi av oss med en tid.</p>
       </div>
     </div>
   </section>
@@ -672,174 +639,6 @@ function parseCSV(t){
 })();
 
 
-var TEL = "060-56 88 88", MAIL = "info@birstabilgummi.se";
-var REQUEST_URL = REQUEST_URL || API_URL;
-function el(tag,cls,text){ var e=document.createElement(tag); if(cls) e.className=cls; if(text!==undefined) e.textContent=text; return e; }
-
-/* ===== Bokning hjulinställning =====
-   BOOKING_URL = adressen till bokningstjänsten (Google Apps Script, steg som vi gör tillsammans).
-   Tom = bokningen skickas som ett förifyllt mejl till info@birstabilgummi.se. */
-var BOOKING_URL = API_URL;
-var BOOKING_TIMES = ["08:00","09:00","10:00","12:00","13:00","14:00","15:00"];
-var BOOKING_DAYS_AHEAD = 14;          /* hur många dagar framåt man kan boka */
-var CLOSED_DATES = [];                /* stängda datum, t.ex. ["2026-12-24"] */
-var DAYN=['söndag','måndag','tisdag','onsdag','torsdag','fredag','lördag'];
-var DAYS=['sön','mån','tis','ons','tors','fre','lör'];
-var MONF=['januari','februari','mars','april','maj','juni','juli','augusti','september','oktober','november','december'];
-var MONS=['jan','feb','mars','apr','maj','juni','juli','aug','sep','okt','nov','dec'];
-
-(function(){
-  var daysBox=document.getElementById('days'), timesBox=document.getElementById('times'),
-      stepTime=document.getElementById('stepTime'), stepForm=document.getElementById('stepForm'),
-      timeFor=document.getElementById('timeFor'),
-      chosen=document.getElementById('chosen'), phone=document.getElementById('phone'), reg=document.getElementById('reg'),
-      phoneErr=document.getElementById('phoneErr'), regErr=document.getElementById('regErr'),
-      status=document.getElementById('status'), send=document.getElementById('send'),
-      done=document.getElementById('done'), flow=document.getElementById('flow');
-  var sel={date:null,time:null}, booked={};
-
-  function iso(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
-  function parse(s){ var p=s.split('-'); return new Date(+p[0],+p[1]-1,+p[2]); }
-  function longDate(s){ var d=parse(s); return DAYN[d.getDay()]+' '+d.getDate()+' '+MONF[d.getMonth()]; }
-  function shortDate(s){ var d=parse(s); return DAYS[d.getDay()]+' '+d.getDate()+' '+MONS[d.getMonth()]; }
-  function label(t){ return t.replace(':','.'); }
-  function mondayOf(d){ var x=new Date(d.getFullYear(),d.getMonth(),d.getDate()); var dow=x.getDay(); x.setDate(x.getDate()+(dow===0?-6:1-dow)); return x; }
-  function weekLabel(s){
-    var diff=Math.round((mondayOf(parse(s))-mondayOf(new Date()))/(7*24*3600*1000));
-    if(diff===0) return 'Denna vecka';
-    if(diff===1) return 'Nästa vecka';
-    return 'Om '+diff+' veckor';
-  }
-
-  function bookableDays(){
-    var out=[], now=new Date(), d=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-    for(var i=0;i<=BOOKING_DAYS_AHEAD;i++){
-      var x=new Date(d.getFullYear(),d.getMonth(),d.getDate()+i), dow=x.getDay(), s=iso(x);
-      if(dow===0||dow===6||CLOSED_DATES.indexOf(s)>-1) continue;
-      if(i===0 && freeTimes(s).length===0) continue;
-      out.push(s);
-    }
-    return out;
-  }
-  function isPast(s,t){
-    var d=parse(s), h=t.split(':'); d.setHours(+h[0],+h[1],0,0);
-    return d.getTime() < Date.now()+60*60*1000;   /* minst en timme framåt */
-  }
-  function freeTimes(s){
-    return BOOKING_TIMES.filter(function(t){ return !isPast(s,t) && (booked[s]||[]).indexOf(t)<0; });
-  }
-
-  function renderDays(){
-    daysBox.textContent='';
-    var curLabel=null, row=null;
-    bookableDays().forEach(function(s){
-      var lbl=weekLabel(s);
-      if(lbl!==curLabel){
-        curLabel=lbl;
-        var group=el('div','day-week');
-        group.appendChild(el('div','week-label',lbl));
-        row=el('div','day-row');
-        group.appendChild(row);
-        daysBox.appendChild(group);
-      }
-      var d=parse(s), b=el('button','pill',DAYS[d.getDay()]+' '+d.getDate()); b.type='button';
-      b.appendChild(el('small','',MONS[d.getMonth()]));
-      b.setAttribute('aria-pressed',s===sel.date);
-      b.addEventListener('click',function(){ pickDay(s); });
-      row.appendChild(b);
-    });
-  }
-  function renderTimes(){
-    timesBox.textContent='';
-    BOOKING_TIMES.forEach(function(t){
-      var b=el('button','pill',label(t)); b.type='button';
-      var free=freeTimes(sel.date).indexOf(t)>-1;
-      b.disabled=!free;
-      if(!free) b.title='Upptagen';
-      b.setAttribute('aria-pressed',t===sel.time);
-      b.addEventListener('click',function(){ pickTime(t); });
-      timesBox.appendChild(b);
-    });
-  }
-  function pickDay(s){
-    sel.date=s; sel.time=null;
-    stepForm.hidden=true; status.textContent='';
-    renderDays(); renderTimes();
-    timeFor.textContent='Lediga tider '+longDate(s)+':';
-    stepTime.hidden=false;
-    stepTime.scrollIntoView({behavior:'smooth',block:'nearest'});
-  }
-  function pickTime(t){
-    sel.time=t; renderTimes();
-    chosen.textContent=longDate(sel.date)+' kl '+label(t);
-    stepForm.hidden=false;
-    stepForm.scrollIntoView({behavior:'smooth',block:'nearest'});
-    phone.focus({preventScroll:true});
-  }
-
-  /* Registreringsnummer: versaler och mellanrum efter tredje tecknet */
-  reg.addEventListener('input',function(){
-    var v=reg.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6);
-    reg.value=v.length>3?v.slice(0,3)+' '+v.slice(3):v;
-  });
-
-  function validate(){
-    var ok=true, p=phone.value.replace(/\D/g,''), r=reg.value.replace(/\s/g,'');
-    phoneErr.textContent=''; regErr.textContent='';
-    if(p.length<8||p.length>13){ phoneErr.textContent='Skriv ditt telefonnummer, t.ex. 070 123 45 67.'; ok=false; }
-    if(!/^[A-Z]{3}\d{2}[A-Z0-9]$/.test(r)){ regErr.textContent='Skriv registreringsnumret, t.ex. ABC 123.'; ok=false; }
-    if(!ok){ (phoneErr.textContent?phone:reg).focus(); }
-    return ok;
-  }
-
-  function showDone(title,info){
-    flow.hidden=true; done.hidden=false;
-    document.getElementById('doneTitle').textContent=title;
-    document.getElementById('doneWhen').textContent=longDate(sel.date)+' kl '+label(sel.time);
-    document.getElementById('doneInfo').textContent=info;
-    done.scrollIntoView({behavior:'smooth',block:'start'}); done.focus({preventScroll:true});
-  }
-
-  stepForm.addEventListener('submit',function(e){
-    e.preventDefault();
-    if(!validate()) return;
-    var data={service:'Hjulinställning',date:sel.date,time:sel.time,phone:phone.value.trim(),reg:reg.value.trim()};
-    send.disabled=true; status.textContent='Skickar...';
-
-    if(!BOOKING_URL){
-      var subject='Bokning hjulinställning '+shortDate(sel.date)+' kl '+label(sel.time);
-      var body='Hej!\n\nJag vill boka hjulinställning.\n\nTid: '+longDate(sel.date)+' kl '+label(sel.time)+'\nRegistreringsnummer: '+data.reg+'\nTelefon: '+data.phone+'\n';
-      window.location.href='mailto:'+MAIL+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-      status.textContent='Ditt mejlprogram öppnas med bokningen ifylld. Skicka mejlet så är förfrågan hos oss.';
-      send.disabled=false;
-      return;
-    }
-    fetch(BOOKING_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)})
-      .then(function(r){return r.json();})
-      .then(function(j){
-        if(j&&j.ok){ showDone('Tack, din tid är bokad','Reg.nr '+data.reg+'. Vi ringer dig på '+data.phone+' om något behöver ändras.'); }
-        else if(j&&j.error==='taken'){
-          (booked[sel.date]=booked[sel.date]||[]).push(sel.time);
-          status.textContent='Tyvärr, den tiden hann bli bokad. Välj en annan tid.';
-          sel.time=null; stepForm.hidden=true; renderTimes(); send.disabled=false;
-        } else { throw new Error('fel'); }
-      })
-      .catch(function(){ status.textContent='Det gick inte att boka just nu. Ring oss på '+TEL+'.'; send.disabled=false; });
-  });
-
-  /* Visa dagar direkt - väntar inte på nätverket.
-     Bokade tider hämtas i bakgrunden och dagarna/tiderna ritas om när de kommer. */
-  renderDays();
-  if(BOOKING_URL){
-    var bookedCtrl=(window.AbortController?new AbortController():null);
-    var bookedTimeout=bookedCtrl?setTimeout(function(){ bookedCtrl.abort(); },10000):null;
-    fetch(BOOKING_URL+'?action=booked', bookedCtrl?{signal:bookedCtrl.signal}:{})
-      .then(function(r){return r.json();})
-      .then(function(j){ booked=j||{}; renderDays(); renderTimes(); })
-      .catch(function(){})
-      .then(function(){ if(bookedTimeout) clearTimeout(bookedTimeout); });
-  }
-})();
 
 /* ===== Data direkt från Google Kalkylark via Apps Script (API_URL) ===== */
 (function(){
