@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="color-scheme" content="light">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Fälgar – Birsta Bilgummi</title>
-<meta name="description" content="Fälgar till 99 % av bilmärkena. Kom förbi eller ring Birsta Bilgummi i Sundsbruk, så hjälper vi dig.">
+<title>Fälgar i Sundsvall – Birsta Bilgummi</title>
+<meta name="description" content="Fälgar till 99 % av bilmärkena. Kom förbi eller ring Birsta Bilgummi i Sundsvall, så hjälper vi dig.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
@@ -209,6 +209,8 @@ footer a{text-underline-offset:3px}
 .acard .big{margin:0;font-weight:600;font-size:1.25rem}
 .acard .hours-line{margin:0;color:var(--muted)}
 .acard .hours-line [data-info]{white-space:normal}
+.week{display:grid;grid-template-columns:max-content max-content;gap:4px 18px;justify-content:center;text-align:left}
+.week .t{font-variant-numeric:tabular-nums}
 .acard .bigphone{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:800;font-size:clamp(2.4rem,6vw,3.4rem);line-height:1;text-decoration:none;color:var(--ink)}
 .acard .bigphone:hover{color:var(--red)}
 .acard .btn{margin-top:auto}
@@ -485,8 +487,8 @@ html,body{background:#fff;color:#1d1f21}</style>
 <meta property="og:type" content="website">
 <meta property="og:locale" content="sv_SE">
 <meta property="og:site_name" content="Birsta Bilgummi">
-<meta property="og:title" content="Fälgar – Birsta Bilgummi">
-<meta property="og:description" content="Fälgar till 99 % av bilmärkena. Kom förbi eller ring Birsta Bilgummi i Sundsbruk, så hjälper vi dig.">
+<meta property="og:title" content="Fälgar i Sundsvall – Birsta Bilgummi">
+<meta property="og:description" content="Fälgar till 99 % av bilmärkena. Kom förbi eller ring Birsta Bilgummi i Sundsvall, så hjälper vi dig.">
 <script src="config.js"></script>
 </head>
 <body>
@@ -515,7 +517,7 @@ html,body{background:#fff;color:#1d1f21}</style>
     <div class="wrap">
       <div>
         <h1 class="fit-line" data-max="86">Fälgar</h1>
-        <p class="sub">Fälgar till 99 % av bilmärkena. Kom förbi eller ring oss, så hjälper vi dig.</p>
+        <p class="sub">Fälgar till 99 % av bilmärkena. Kom förbi oss i Sundsvall eller ring, så hjälper vi dig.</p>
         <p class="dropin"><b>Drop in</b><span>Kom förbi, så tittar vi på fälgar tillsammans.</span></p>
       </div>
     </div>
@@ -529,7 +531,7 @@ html,body{background:#fff;color:#1d1f21}</style>
         <div class="acard">
           <h3>Kom förbi</h3>
           <p class="big">Falevägen 1, 863 33 Sundsbruk</p>
-          <p class="hours-line">Öppettider: <span data-info="oppettider">Mån–fre 07:30–16:00</span></p>
+          <div class="hours-line week"><span>Måndag–fredag</span><span class="t" data-info="oppettider_vardag">07:30–16:00</span><span>Lördag</span><span class="t" data-info="oppettider_lordag">Stängt</span><span>Söndag</span><span class="t" data-info="oppettider_sondag">Stängt</span></div>
           <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Falev%C3%A4gen+1+863+33+Sundsbruk" target="_blank" rel="noopener">Öppna i kartor</a>
         </div>
         <div class="acard">
