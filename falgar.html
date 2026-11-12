@@ -209,6 +209,8 @@ footer a{text-underline-offset:3px}
 .acard .big{margin:0;font-weight:600;font-size:1.25rem}
 .acard .hours-line{margin:0;color:var(--muted)}
 .acard .hours-line [data-info]{white-space:normal}
+.week{display:grid;grid-template-columns:max-content max-content;gap:4px 18px;justify-content:center;text-align:left}
+.week .t{font-variant-numeric:tabular-nums}
 .acard .bigphone{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:800;font-size:clamp(2.4rem,6vw,3.4rem);line-height:1;text-decoration:none;color:var(--ink)}
 .acard .bigphone:hover{color:var(--red)}
 .acard .btn{margin-top:auto}
@@ -529,7 +531,7 @@ html,body{background:#fff;color:#1d1f21}</style>
         <div class="acard">
           <h3>Kom förbi</h3>
           <p class="big">Falevägen 1, 863 33 Sundsbruk</p>
-          <p class="hours-line">Öppettider måndag–fredag: <span data-info="oppettider_vardag">07:30–16:00</span></p>
+          <div class="hours-line week"><span>Måndag–fredag</span><span class="t" data-info="oppettider_vardag">07:30–16:00</span><span>Lördag</span><span class="t" data-info="oppettider_lordag">Stängt</span><span>Söndag</span><span class="t" data-info="oppettider_sondag">Stängt</span></div>
           <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Falev%C3%A4gen+1+863+33+Sundsbruk" target="_blank" rel="noopener">Öppna i kartor</a>
         </div>
         <div class="acard">

@@ -36,7 +36,7 @@ Det görs i två Google-kalkylark. Ändringen syns på sidan så fort någon lad
 | Nyckel | Vad det styr |
 |---|---|
 | `banner` | Gul text högst upp på alla sidor, t.ex. "Stängt vecka 28". Tomt = ingen banner |
-| `oppettider_vardag` | Tiderna måndag–fredag, bara klockslagen, t.ex. `07:30–16:00`. Syns på startsidan och fälgsidan |
+| `oppettider_vardag` | Tiderna måndag–fredag, bara klockslagen, t.ex. `07:30–16:00`. Syns längst ner på startsidan och på fälgsidan |
 | `oppettider_lordag`, `oppettider_sondag` | Tiderna lördag och söndag, t.ex. `10:00–14:00`. Tomt = "Stängt" |
 | `pris_hjulinstallning` | Priset på hjulinställning |
 | `pris_dackbyte` | Priset på däckbyte |
