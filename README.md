@@ -36,7 +36,8 @@ Det görs i två Google-kalkylark. Ändringen syns på sidan så fort någon lad
 | Nyckel | Vad det styr |
 |---|---|
 | `banner` | Gul text högst upp på alla sidor, t.ex. "Stängt vecka 28". Tomt = ingen banner |
-| `oppettider` | Öppettiderna längst ner på startsidan och på fälgsidan |
+| `oppettider_vardag` | Tiderna måndag–fredag, bara klockslagen, t.ex. `07:30–16:00`. Syns längst ner på startsidan och på fälgsidan |
+| `oppettider_lordag`, `oppettider_sondag` | Tiderna lördag och söndag, t.ex. `10:00–14:00`. Tomt = "Stängt" |
 | `pris_hjulinstallning` | Priset på hjulinställning |
 | `pris_dackbyte` | Priset på däckbyte |
 | `nyhet_rubrik`, `nyhet_text` | Rubrik och text i nyhetsrutan som kommer upp när man går in på sidan. Skriv `-` i rubriken för att dölja rutan |
@@ -89,7 +90,7 @@ Kalkylarken och tjänsten (Google Apps Script) ligger just nu i det Google-konto
 
 ## Innan ni publicerar – kolla särskilt
 
-- Att **öppettiderna** i Info-arket är rätta och skrivna som kunden ska läsa dem (t.ex. `Mån–fre 07:30–16:30`).
+- Att **öppettiderna** i Info-arket är rätta och skrivna som kunden ska läsa dem (bara klockslagen, t.ex. `07:30–16:00`).
 - Att texten på `integritet.html` stämmer med hur ni arbetar. Den säger bland annat att bokningar och förfrågningar sparas högst 12 månader, och då måste ni rensa arket med jämna mellanrum.
 - Att ni får visa **Pirelli-nyheten**, och lägg gärna in en länk till testerna i Info-arket (`nyhet_lank`).
 - Att priserna, dimensionerna och märkena i Däck-arket stämmer.
