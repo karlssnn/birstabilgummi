@@ -315,6 +315,7 @@ table.prices{width:100%;border-collapse:collapse;min-width:420px}
 .done .big{font-weight:600;font-size:1.25rem;color:#fff}
 .alt-call{margin:18px 0 0;color:var(--muted)}
 .alt-call a{color:var(--red);font-weight:600}
+.alt-call a.btn{color:#fff}
 .info-cols{display:grid;grid-template-columns:1fr 1fr;gap:40px}
 @media (max-width:760px){.info-cols{grid-template-columns:1fr}}
 .info-cols h2{font-size:2.2rem}
@@ -518,7 +519,7 @@ html,body{background:#fff;color:#1d1f21}</style>
         <p class="sub">Utöver däck och fälgar hjälper vi dig med flera saker på bilen i vår verkstad i Sundsvall. Kontakta oss för pris och mer information.</p>
         <div class="dropins">
           <p class="dropin"><b>Drop in</b><span>Kom förbi, du behöver inte boka.</span></p>
-          <p class="dropin"><b class="book">Boka tid</b><span>Jobb i verkstaden bokas i förväg.</span></p>
+          <p class="dropin"><b class="book">Ring oss</b><span>Jobb i verkstaden bokar vi in tillsammans. Ring eller mejla oss.</span></p>
         </div>
       </div>
     </div>
@@ -529,66 +530,30 @@ html,body{background:#fff;color:#1d1f21}</style>
       <div class="svc-group">
         <h2>Hjul och fälgar</h2>
         <div class="svcs">
-          <div class="svc"><div class="name"><h3>Fram- och bakvagnsinställning</h3><i class="tag book">Ring oss</i></div><p>För jämnare slitage på däcken och en bil som går rakt. Ring eller mejla oss så bokar vi in en tid.</p><span class="price" data-info="pris_hjulinstallning">Från 1 400 kr</span><button type="button" class="act" data-service="Fram- och bakvagnsinställning">Boka tid</button></div>
-          <div class="svc"><div class="name"><h3>Däckbyte</h3><i class="tag drop">Drop in</i></div><p>Byte av däck på din bil.</p><span class="price" data-info="pris_dackbyte">Från 400 kr</span><button type="button" class="act" data-service="Däckbyte">Fråga oss</button></div>
-          <div class="svc"><div class="name"><h3>Riktning av lättmetallfälgar</h3><i class="tag drop">Drop in</i></div><p>Har fälgen blivit skev eller böjd? Vi riktar lättmetallfälgar.</p><span class="price"></span><button type="button" class="act" data-service="Riktning av lättmetallfälgar">Fråga om pris</button></div>
-          <div class="svc"><div class="name"><h3>Förvaring av däck</h3><i class="tag drop">Drop in</i></div><p>Vi förvarar dina däck åt dig. Fråga oss om pris och hur det går till.</p><span class="price"></span><button type="button" class="act" data-service="Förvaring av däck">Fråga om pris</button></div>
+          <div class="svc"><div class="name"><h3>Fram- och bakvagnsinställning</h3><i class="tag book">Ring oss</i></div><p>För jämnare slitage på däcken och en bil som går rakt. Ring eller mejla oss så bokar vi in en tid.</p><span class="price" data-info="pris_hjulinstallning">Från 1 400 kr</span><a class="act" href="tel:+4660568888">Ring oss</a></div>
+          <div class="svc"><div class="name"><h3>Däckbyte</h3><i class="tag drop">Drop in</i></div><p>Byte av däck på din bil.</p><span class="price" data-info="pris_dackbyte">Från 400 kr</span><a class="act" href="tel:+4660568888">Ring oss</a></div>
+          <div class="svc"><div class="name"><h3>Riktning av lättmetallfälgar</h3><i class="tag drop">Drop in</i></div><p>Har fälgen blivit skev eller böjd? Vi riktar lättmetallfälgar.</p><span class="price"></span><a class="act" href="tel:+4660568888">Ring oss</a></div>
+          <div class="svc"><div class="name"><h3>Förvaring av däck</h3><i class="tag drop">Drop in</i></div><p>Vi förvarar dina däck åt dig. Fråga oss om pris och hur det går till.</p><span class="price"></span><a class="act" href="tel:+4660568888">Ring oss</a></div>
         </div>
       </div>
       <div class="svc-group">
         <h2>Service och reparation</h2>
         <div class="svcs">
-          <div class="svc"><div class="name"><h3>Service</h3><i class="tag book">Boka tid</i></div><p>Service av din bil. Hör av dig så berättar vi vad som passar just din bil.</p><span class="price"></span><button type="button" class="act" data-service="Service">Boka tid</button></div>
-          <div class="svc"><div class="name"><h3>Oljebyten</h3><i class="tag book">Boka tid</i></div><p>Oljebyte på din bil. Ring eller mejla för pris.</p><span class="price"></span><button type="button" class="act" data-service="Oljebyte">Boka tid</button></div>
+          <div class="svc"><div class="name"><h3>Service</h3><i class="tag book">Ring oss</i></div><p>Service av din bil. Hör av dig så berättar vi vad som passar just din bil.</p><span class="price"></span><a class="act" href="tel:+4660568888">Ring oss</a></div>
+          <div class="svc"><div class="name"><h3>Oljebyten</h3><i class="tag book">Ring oss</i></div><p>Oljebyte på din bil. Ring eller mejla för pris.</p><span class="price"></span><a class="act" href="tel:+4660568888">Ring oss</a></div>
           <div class="svc"><div class="name"><h3>Annat du behöver hjälp med?</h3><i class="tag book">Ring oss</i></div><p>Vi fixar det mesta på bilen, som bromsar, stötdämpare och liknande reparationer. Ring oss så hör vi om vi kan hjälpa dig.</p><span class="price"></span><a class="act" href="tel:+4660568888">Ring oss</a></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="book" id="fraga">
+  <section class="book" id="kontakta">
     <div class="wrap">
       <div class="steps">
-        <div class="done" id="tDone" hidden tabindex="-1" aria-live="polite">
-          <h2>Tack, vi hör av oss</h2>
-          <p class="big" id="tDoneWhat"></p>
-          <p>Vi ringer eller mejlar dig med pris och en tid.</p>
-        </div>
-        <form class="step" id="tForm" novalidate>
-          <h2>Fråga om pris eller boka tid</h2>
-          <p class="lead">Välj vad det gäller och lämna dina uppgifter, så hör vi av oss med pris och en tid. Du kan också ringa oss på <a href="tel:+4660568888">060-56 88 88</a>.</p>
-          <div class="field">
-            <label for="tService">Vad gäller det?</label>
-            <select id="tService">
-              <option value="">Välj tjänst</option>
-              <option>Däckbyte</option>
-              <option>Riktning av lättmetallfälgar</option>
-              <option>Service</option>
-              <option>Fram- och bakvagnsinställning</option>
-              <option>Oljebyte</option>
-              <option>Förvaring av däck</option>
-              <option>Annat</option>
-            </select>
-            <p class="err" id="tServiceErr" role="alert"></p>
-          </div>
-          <div class="field">
-            <label for="tReg">Registreringsnummer på bilen</label>
-            <input id="tReg" class="reg" type="text" autocomplete="off" autocapitalize="characters" maxlength="7" placeholder="ABC 123">
-            <p class="err" id="tRegErr" role="alert"></p>
-          </div>
-          <div class="field">
-            <label for="tPhone">Telefonnummer</label>
-            <input id="tPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="070 123 45 67">
-            <p class="err" id="tPhoneErr" role="alert"></p>
-          </div>
-          <div class="field">
-            <label for="tMsg">Något vi ska veta? <span class="opt-label">(valfritt)</span></label>
-            <textarea id="tMsg" maxlength="500" placeholder="T.ex. vad som är fel eller vilken tid som passar"></textarea>
-          </div>
-          <button class="btn" type="submit" id="tSend">Skicka förfrågan</button>
-          <p class="status" id="tStatus" role="status"></p>
-          <p class="fine">Genom att skicka godkänner du att vi sparar dina uppgifter för att kunna svara dig. <a href="integritet.html">Läs mer</a></p>
-        </form>
+        <h2>Ring eller mejla oss</h2>
+        <p class="lead">Berätta vad det gäller, så ger vi dig pris och en tid som passar.</p>
+        <p class="alt-call"><a class="btn" href="tel:+4660568888">Ring 060-56 88 88</a></p>
+        <p class="alt-call">Eller mejla <a href="mailto:info@birstabilgummi.se">info@birstabilgummi.se</a>.</p>
       </div>
     </div>
   </section>
@@ -670,55 +635,6 @@ function parseCSV(t){
   }catch(e){}
 })();
 
-
-var TEL = "060-56 88 88", MAIL = "info@birstabilgummi.se";
-var REQUEST_URL = REQUEST_URL || API_URL;
-function el(tag,cls,text){ var e=document.createElement(tag); if(cls) e.className=cls; if(text!==undefined) e.textContent=text; return e; }
-
-/* ===== Övriga tjänster: förfrågan ===== */
-(function(){
-  var f=document.getElementById('tForm'), sv=document.getElementById('tService'), reg=document.getElementById('tReg'),
-      phone=document.getElementById('tPhone'), msg=document.getElementById('tMsg'),
-      sErr=document.getElementById('tServiceErr'), rErr=document.getElementById('tRegErr'), pErr=document.getElementById('tPhoneErr'),
-      st=document.getElementById('tStatus'), send=document.getElementById('tSend'), done=document.getElementById('tDone');
-  Array.prototype.forEach.call(document.querySelectorAll('.svc .act[data-service]'),function(b){
-    b.addEventListener('click',function(){
-      sv.value=b.getAttribute('data-service');
-      f.scrollIntoView({behavior:'smooth',block:'start'});
-      reg.focus({preventScroll:true});
-    });
-  });
-  reg.addEventListener('input',function(){
-    var v=reg.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6);
-    reg.value=v.length>3?v.slice(0,3)+' '+v.slice(3):v;
-  });
-  f.addEventListener('submit',function(e){
-    e.preventDefault();
-    var p=phone.value.replace(/\D/g,''), r=reg.value.replace(/\s/g,''), ok=true, first=null;
-    sErr.textContent=''; rErr.textContent=''; pErr.textContent='';
-    if(!sv.value){ sErr.textContent='Välj vilken tjänst det gäller.'; ok=false; first=first||sv; }
-    if(!/^[A-Z]{3}\d{2}[A-Z0-9]$/.test(r)){ rErr.textContent='Skriv registreringsnumret, t.ex. ABC 123.'; ok=false; first=first||reg; }
-    if(p.length<8||p.length>13){ pErr.textContent='Skriv ditt telefonnummer, t.ex. 070 123 45 67.'; ok=false; first=first||phone; }
-    if(!ok){ first.focus(); return; }
-    var data={service:sv.value,reg:reg.value.trim(),phone:phone.value.trim(),message:msg.value.trim()};
-    send.disabled=true; st.textContent='Skickar...';
-    if(!REQUEST_URL){
-      var body='Hej!\n\nJag vill fråga om pris eller boka tid.\n\nTjänst: '+data.service+'\nRegistreringsnummer: '+data.reg+'\nTelefon: '+data.phone+'\nMeddelande: '+(data.message||'-')+'\n';
-      window.location.href='mailto:'+MAIL+'?subject='+encodeURIComponent('Förfrågan: '+data.service+' '+data.reg)+'&body='+encodeURIComponent(body);
-      st.textContent='Ditt mejlprogram öppnas med förfrågan ifylld. Skicka mejlet så är den hos oss.';
-      send.disabled=false; return;
-    }
-    fetch(REQUEST_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)})
-      .then(function(r){return r.json();})
-      .then(function(j){
-        if(!(j&&j.ok)) throw new Error('fel');
-        f.hidden=true; done.hidden=false;
-        document.getElementById('tDoneWhat').textContent=data.service+', reg.nr '+data.reg;
-        done.scrollIntoView({behavior:'smooth',block:'start'}); done.focus({preventScroll:true});
-      })
-      .catch(function(){ st.textContent='Det gick inte att skicka just nu. Ring oss på '+TEL+'.'; send.disabled=false; });
-  });
-})();
 
 /* ===== Data direkt från Google Kalkylark via Apps Script (API_URL) ===== */
 (function(){
