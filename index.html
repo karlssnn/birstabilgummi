@@ -176,7 +176,7 @@ footer a{text-underline-offset:3px}
 .hero.start .sub{max-width:44ch}
 .choices{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:38px}
 .choice{display:flex;flex-direction:column;gap:14px;background:#fff;color:#1d1f21;text-decoration:none;border-radius:10px;border-bottom:7px solid var(--red);padding:22px;text-align:left}
-.choice .head{display:flex;align-items:center;gap:16px}
+.choice .head{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
 .choice .t{font-family:"Outfit",Arial,sans-serif;font-weight:800;font-size:clamp(1.3rem,1.8vw,1.8rem);line-height:1.05;hyphens:auto;overflow-wrap:break-word}
 .choice .d{color:#575d62;line-height:1.45}
 .choice:hover{background:var(--red);color:#fff;border-bottom-color:#fff}
@@ -405,9 +405,10 @@ footer img{background:transparent}
 .tile:hover{background:var(--asphalt)}
 .choice:hover{background:var(--red)}
 
-.choice .pic{display:block;width:92px;height:92px;flex:none}
+.choice .pic{display:block;width:100%;height:150px;flex:none}
 .choice .pic svg{display:block;width:100%;height:100%}
 .choice .pic img{display:block;height:100%;width:100%;object-fit:contain}
+@media (max-width:520px){.choice .pic{height:120px}}
 
 @media (max-width:700px){
   .dropins{display:flex;flex-direction:column;align-items:center;gap:22px;width:100%;margin:24px 0 0}
