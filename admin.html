@@ -158,15 +158,41 @@ legend{font-weight:800;font-size:1.25rem;padding:0 0 12px;width:100%}
     loadCurrent();
   }
 
-  var savedPin = sessionStorage.getItem(PIN_KEY);
-  if(savedPin){ openApp(); }
+  var unlockBtn = document.getElementById('unlockBtn');
 
-  document.getElementById('unlockBtn').addEventListener('click', function(){
+  // Tom lista med ändringar = kontrollera bara koden, inget sparas.
+  function checkPin(pin){
+    return fetch(ADMIN_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({pin: pin, updates: []})})
+      .then(function(r){ return r.json(); });
+  }
+
+  var savedPin = sessionStorage.getItem(PIN_KEY);
+  if(savedPin && ADMIN_URL){
+    checkPin(savedPin).then(function(j){
+      if(j && j.ok){ openApp(); } else { sessionStorage.removeItem(PIN_KEY); }
+    }).catch(function(){});
+  }
+
+  unlockBtn.addEventListener('click', function(){
     var v = pinInput.value.trim();
     if(!v){ gateErr.textContent = 'Skriv koden först.'; return; }
-    sessionStorage.setItem(PIN_KEY, v);
-    gateErr.textContent = '';
-    openApp();
+    if(!ADMIN_URL){ gateErr.textContent = 'Sidan är inte inkopplad än.'; return; }
+    unlockBtn.disabled = true;
+    gateErr.textContent = 'Kollar koden…';
+    checkPin(v).then(function(j){
+      unlockBtn.disabled = false;
+      if(j && j.ok){
+        sessionStorage.setItem(PIN_KEY, v);
+        gateErr.textContent = '';
+        openApp();
+      } else {
+        gateErr.textContent = 'Fel kod. Försök igen.';
+        pinInput.value = ''; pinInput.focus();
+      }
+    }).catch(function(){
+      unlockBtn.disabled = false;
+      gateErr.textContent = 'Kunde inte kolla koden just nu. Kolla internet och försök igen.';
+    });
   });
   pinInput.addEventListener('keydown', function(e){ if(e.key==='Enter'){ document.getElementById('unlockBtn').click(); } });
 
