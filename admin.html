@@ -322,8 +322,8 @@ body{margin:0;background:#fff;color:var(--ink);font:400 1.0625rem/1.6 "Outfit",A
       'img[data-edit-kind="img"]:hover{outline:3px dashed #1a73e8;outline-offset:2px}' +
       '[data-edit-dirty]{box-shadow:0 0 0 3px #ffd84d}' +
       '#notice[data-edit-kind="banner"]{display:block!important;min-height:2.6em}' +
-      '#notice:empty:not(:focus)::before{content:"Klicka här om du vill visa ett gult meddelande högst upp. Lämna tomt så syns det inte.";opacity:.6;font-weight:500}' +
-      '#notice:focus{background:#fff8c4;outline:3px solid #1a73e8!important;outline-offset:-3px;caret-color:#1d1f21}' +
+      '#notice:empty:not(:focus)::before{content:"Klicka här om du vill visa ett meddelande här. Lämna tomt så syns det inte.";opacity:.85;font-weight:500}' +
+      '#notice:focus{outline:3px solid #fff!important;outline-offset:-6px;caret-color:#fff}' +
       '#notice:focus:empty::before{content:"Skriv meddelandet här…";opacity:.45;font-weight:500;pointer-events:none}';
     view.head.appendChild(st);
     var notice = view.getElementById('notice');
