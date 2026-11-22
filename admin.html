@@ -299,6 +299,7 @@ body{margin:0;background:#fff;color:var(--ink);font:400 1.0625rem/1.6 "Outfit",A
       if(el.namespaceURI !== HTML_NS || SKIP[el.tagName]) return;
       if(el.id === 'notice'){ mark(el, 'banner'); return; }
       if(el.tagName === 'IMG'){ mark(el, 'img'); return; }
+      if(el.classList.contains('price') && el.parentElement && el.parentElement.classList.contains('svc') && !el.hasAttribute('data-info')){ mark(el, 'text'); return; }
       if(el.hasAttribute('data-info')){ if(!el.hasAttribute('data-info-href')) mark(el, 'info'); return; }
       if(hasText(el)){
         mark(el, 'text');
@@ -322,6 +323,8 @@ body{margin:0;background:#fff;color:var(--ink);font:400 1.0625rem/1.6 "Outfit",A
       'img[data-edit-kind="img"]:hover{outline:3px dashed #1a73e8;outline-offset:2px}' +
       '[data-edit-dirty]{box-shadow:0 0 0 3px #ffd84d}' +
       '#notice[data-edit-kind="banner"]{display:block!important;min-height:2.6em}' +
+      '.svc .price[data-edit-kind]{display:block!important;min-width:120px;min-height:1.5em}' +
+      '.svc .price[data-edit-kind]:empty:not(:focus)::before{content:"+ Skriv pris";font-size:1rem;font-weight:700;color:#1a73e8;border:2px dashed #1a73e8;border-radius:8px;padding:6px 12px;white-space:nowrap}' +
       '#notice:empty:not(:focus)::before{content:"Klicka här om du vill visa ett meddelande här. Lämna tomt så syns det inte.";opacity:.85;font-weight:500}' +
       '#notice:focus{outline:3px solid #fff!important;outline-offset:-6px;caret-color:#fff}' +
       '#notice:focus:empty::before{content:"Skriv meddelandet här…";opacity:.45;font-weight:500;pointer-events:none}';
@@ -439,6 +442,7 @@ body{margin:0;background:#fff;color:var(--ink);font:400 1.0625rem/1.6 "Outfit",A
         var o = byId(p, c.getAttribute('data-edit-id'));
         ['src', 'width', 'height'].forEach(function(a){ if(o.hasAttribute(a)) c.setAttribute(a, o.getAttribute(a)); });
       });
+      if(clone.classList.contains('price')) clone.textContent = clone.textContent.replace(/\s+/g, ' ').trim();
       strip(clone);
       if(clone.innerHTML !== orig.innerHTML){ orig.innerHTML = clone.innerHTML; htmlChanged = true; }
     });
