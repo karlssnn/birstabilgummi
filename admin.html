@@ -322,7 +322,9 @@ body{margin:0;background:#fff;color:var(--ink);font:400 1.0625rem/1.6 "Outfit",A
       'img[data-edit-kind="img"]:hover{outline:3px dashed #1a73e8;outline-offset:2px}' +
       '[data-edit-dirty]{box-shadow:0 0 0 3px #ffd84d}' +
       '#notice[data-edit-kind="banner"]{display:block!important;min-height:2.6em}' +
-      '#notice:empty::before{content:"Klicka här om du vill visa ett gult meddelande högst upp. Lämna tomt så syns det inte.";opacity:.6;font-weight:500}';
+      '#notice:empty:not(:focus)::before{content:"Klicka här om du vill visa ett gult meddelande högst upp. Lämna tomt så syns det inte.";opacity:.6;font-weight:500}' +
+      '#notice:focus{background:#fff8c4;outline:3px solid #1a73e8!important;outline-offset:-3px;caret-color:#1d1f21}' +
+      '#notice:focus:empty::before{content:"Skriv meddelandet här…";opacity:.45;font-weight:500;pointer-events:none}';
     view.head.appendChild(st);
     var notice = view.getElementById('notice');
     if(notice){ notice.removeAttribute('hidden'); notice.textContent = info.banner || ''; }
@@ -351,6 +353,8 @@ body{margin:0;background:#fff;color:var(--ink);font:400 1.0625rem/1.6 "Outfit",A
       var t = (e.clipboardData || window.clipboardData).getData('text/plain').replace(/\s+/g, ' ');
       d.execCommand('insertText', false, t);
     });
+    var nt = d.getElementById('notice');
+    if(nt) nt.addEventListener('mousedown', function(e){ if(!nt.textContent){ e.preventDefault(); nt.focus(); } });
     d.addEventListener('click', function(e){
       var img = e.target.closest('img[data-edit-kind="img"]');
       if(img){ e.preventDefault(); e.stopPropagation(); pendingImg = img; picker.value = ''; picker.click(); return; }
