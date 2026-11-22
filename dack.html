@@ -750,10 +750,9 @@ function parseCSV(t){
 var REQUEST_URL = REQUEST_URL || API_URL;
 var SEASON = null;
 /* ===== Däckdata =====
-   Standarddata = nuvarande prislistan (sommardäck 2026). Alla rader räknas som "Hemma".
-   Kopplar ni ett Google Kalkylark (DACK_CSV_URL) ersätter arkets rader listan nedan.
-   Kolumner i arket: Märke, Dimension, Pris, Status, Typ
-   Status: Hemma / Beställning / Slut (Slut visas inte). Typ: Sommar / Vinter (valfritt). */
+   Ändras via admin-sidan (admin.html, fliken Däck, knappen Däckpriser).
+   Rad: [märke, dimension, pris, typ (Sommar/Vinter), status (hemma/order/slut)].
+   order = beställningsvara, slut visas inte. Saknas typ/status gäller Sommar/hemma. */
 var DACK_DATA = [
   ["Linglong Comfortmaster","155/80R13",850],
   ["Linglong Comfortmaster","155/65R14",950],
@@ -878,7 +877,7 @@ var TEL = "060-56 88 88", TELHREF = "tel:+4660568888", MAIL = "info@birstabilgum
 
 function toRows(arr){
   return arr.map(function(r){
-    return {brand:r[0],dim:r[1],price:r[2],status:'hemma',type:r[3]||'Sommar',digits:r[1].replace(/\D/g,'')};
+    return {brand:r[0],dim:r[1],price:r[2],status:r[4]||'hemma',type:r[3]||'Sommar',digits:r[1].replace(/\D/g,'')};
   });
 }
 var DACK = toRows(DACK_DATA);
@@ -1157,29 +1156,6 @@ function orderForm(dim){
       var v=info[a.getAttribute('data-info-href')]; if(v){ a.href=v; a.hidden=false; }
     });
     if(info.nyhet_rubrik==='-'){ window.__newsOff=true; var nw=document.getElementById('aktuellt'); if(nw) nw.hidden=true; var nm=document.getElementById('newsModal'); if(nm&&!nm.hidden){ nm.hidden=true; document.body.classList.remove('modal-open'); } }
-    if(typeof DACK!=='undefined' && d.dack && d.dack.length){
-      var out=[];
-      d.dack.forEach(function(r){
-        var dim=String(r.dim||'').trim().toUpperCase(), price=parseInt(String(r.price||'').replace(/\D/g,''),10);
-        if(!dim||!price) return;
-        var st=String(r.status||'hemma').trim().toLowerCase();
-        st=st.indexOf('best')===0?'order':(st==='slut'?'slut':'hemma');
-        var tp=String(r.type||'').trim().toLowerCase().indexOf('v')===0?'Vinter':'Sommar';
-        out.push({brand:String(r.brand||'').trim(),dim:dim,price:price,status:st,type:tp,digits:dim.replace(/\D/g,'')});
-      });
-      if(out.length){
-        /* Lägg till/uppdatera med arkets rader istället för att ersätta hela listan,
-           så däck som bara finns hårdkodade på sidan (t.ex. inte inlagda i arket än) inte försvinner. */
-        var merged=DACK.slice();
-        out.forEach(function(sheetRow){
-          var i=merged.findIndex(function(r){ return r.dim===sheetRow.dim&&r.type===sheetRow.type&&r.brand===sheetRow.brand; });
-          if(i>-1) merged[i]=sheetRow; else merged.push(sheetRow);
-        });
-        DACK=merged;
-        if(window.onDackLoaded) window.onDackLoaded();
-        if(typeof SEASON!=='undefined' && SEASON && window.setSeason) setSeason(SEASON,true);
-      }
-    }
   }).catch(function(){});
 })();
 

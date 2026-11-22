@@ -52,6 +52,29 @@ body{margin:0;background:#fff;color:var(--ink);font:400 1.0625rem/1.6 "Outfit",A
 .card .close{font:600 1rem "Outfit",Arial,sans-serif;background:var(--panel,#f1f2f3);border:0;border-radius:8px;padding:10px 18px;cursor:pointer}
 .card .msg{font-weight:600;min-height:1.4em}
 .card .msg.err{color:var(--red)}
+.card .msg.ok{color:#188038}
+.card.wide{max-width:960px;display:flex;flex-direction:column;max-height:92vh;overflow:hidden}
+.card.wide .tablewrap{flex:1;min-height:120px;max-height:none}
+.tools{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
+.tools input{flex:1;min-width:180px;font:500 1rem "Outfit",Arial,sans-serif;padding:9px 12px;border:2px solid var(--line);border-radius:8px}
+.tools button,.foot .primary{font:700 .95rem "Outfit",Arial,sans-serif;color:#fff;background:var(--red);border:0;border-radius:8px;padding:10px 16px;cursor:pointer}
+.foot .primary:disabled{background:#9aa0a5;cursor:default}
+.tablewrap{overflow:auto;max-height:52vh;border:1px solid var(--line);border-radius:8px}
+.tires{border-collapse:collapse;width:100%;min-width:720px;font-size:.95rem}
+.tires th{position:sticky;top:0;background:#f1f2f3;text-align:left;font-weight:700;padding:8px;border-bottom:1px solid var(--line)}
+.tires td{padding:4px 6px;border-bottom:1px solid #eceef0}
+.tires input,.tires select{width:100%;font:500 .95rem "Outfit",Arial,sans-serif;padding:7px 8px;border:1px solid transparent;border-radius:6px;background:transparent;color:var(--ink)}
+.tires input:hover,.tires select:hover{border-color:var(--line)}
+.tires input:focus,.tires select:focus{border-color:var(--red);outline:none;background:#fff}
+.tires .price{text-align:right}
+.tires th:nth-child(1){width:130px}.tires th:nth-child(2){width:110px}.tires th:nth-child(4){width:120px}.tires th:nth-child(5){width:200px}.tires th:nth-child(6){width:80px}
+.tires .del{white-space:nowrap}
+@media(max-width:600px){.card.wide{padding:16px;max-height:96vh}.card.wide>p{display:none}.overlay{padding:8px}}
+.tires tr.changed td{background:#fff7cc}
+.tires tr.bad td{background:#ffe1e1}
+.tires .del{font:600 .85rem "Outfit",Arial,sans-serif;color:var(--red);background:none;border:0;cursor:pointer;padding:6px}
+.foot{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:14px}
+.foot .msg{flex:1;min-width:200px}
 @media (max-width:640px){.hint{display:none}.actions{width:100%;justify-content:space-between}}
 </style>
 </head>
@@ -75,6 +98,7 @@ body{margin:0;background:#fff;color:var(--ink);font:400 1.0625rem/1.6 "Outfit",A
     <div class="actions">
       <span class="status" id="status" role="status"></span>
       <button type="button" class="ghost" id="undoBtn" hidden>Ångra</button>
+      <button type="button" class="ghost" id="tiresBtn" hidden>Däckpriser</button>
       <button type="button" class="ghost" id="historyBtn">Återställ</button>
       <button type="button" id="saveBtn" disabled>Spara</button>
     </div>
@@ -89,6 +113,28 @@ body{margin:0;background:#fff;color:var(--ink);font:400 1.0625rem/1.6 "Outfit",A
     <ul id="historyList"></ul>
     <p class="msg" id="historyMsg"></p>
     <button type="button" class="close" id="historyClose">Stäng</button>
+  </div>
+</div>
+
+<div class="overlay" id="tiresPanel" hidden>
+  <div class="card wide" role="dialog" aria-labelledby="tiresTitle">
+    <h2 id="tiresTitle">Däckpriser</h2>
+    <p>Klicka på ett pris eller en text och skriv nytt. Ändrade rader blir gula. Tryck <b>Spara däckpriser</b> när du är klar.</p>
+    <div class="tools">
+      <input type="search" id="tireSearch" placeholder="Sök dimension eller märke, t.ex. 205/55R16">
+      <button type="button" id="tireAdd">+ Lägg till däck</button>
+    </div>
+    <div class="tablewrap">
+      <table class="tires">
+        <thead><tr><th>Dimension</th><th>Pris (kr)</th><th>Märke</th><th>Typ</th><th>Status</th><th></th></tr></thead>
+        <tbody id="tireRows"></tbody>
+      </table>
+    </div>
+    <div class="foot">
+      <p class="msg" id="tiresMsg"></p>
+      <button type="button" class="close" id="tiresClose">Stäng</button>
+      <button type="button" class="primary" id="tiresSave" disabled>Spara däckpriser</button>
+    </div>
   </div>
 </div>
 
@@ -128,6 +174,12 @@ body{margin:0;background:#fff;color:var(--ink);font:400 1.0625rem/1.6 "Outfit",A
   var saveBtn = document.getElementById('saveBtn');
   var undoBtn = document.getElementById('undoBtn');
   var historyBtn = document.getElementById('historyBtn');
+  var tiresBtn = document.getElementById('tiresBtn');
+  var tiresPanel = document.getElementById('tiresPanel');
+  var tireRows = document.getElementById('tireRows');
+  var tiresMsg = document.getElementById('tiresMsg');
+  var tiresSave = document.getElementById('tiresSave');
+  var tireSearch = document.getElementById('tireSearch');
   var historyEl = document.getElementById('history');
   var historyList = document.getElementById('historyList');
   var historyMsg = document.getElementById('historyMsg');
@@ -219,6 +271,7 @@ body{margin:0;background:#fff;color:var(--ink);font:400 1.0625rem/1.6 "Outfit",A
     });
   }
   function markTab(file){
+    tiresBtn.hidden = file !== 'dack.html';
     Array.prototype.forEach.call(pagesEl.children, function(b){
       if(b.getAttribute('data-file') === file) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
     });
@@ -565,6 +618,126 @@ body{margin:0;background:#fff;color:var(--ink);font:400 1.0625rem/1.6 "Outfit",A
       else historyMsg.textContent = 'Kunde inte återställa: ' + msg;
     });
   }
+
+  /* ---------- däckpriser ---------- */
+  var TIRE_RE = /var DACK_DATA = \[([\s\S]*?)\n\];/;
+  var STATUS = [['hemma', 'Finns hemma'], ['order', 'Beställningsvara'], ['slut', 'Slut (visas inte)']];
+  var tires = [], tiresDirty = false;
+
+  function parseTires(text){
+    var m = text.match(TIRE_RE);
+    if(!m) throw new Error('hittar inte däcklistan');
+    return JSON.parse('[' + m[1].replace(/,\s*$/, '') + ']').map(function(r){
+      return {brand: r[0], dim: r[1], price: r[2], type: r[3] || 'Sommar', status: r[4] || 'hemma'};
+    });
+  }
+  function tiresBlock(list){
+    return 'var DACK_DATA = [\n' + list.map(function(r){
+      var a = [r.brand, r.dim, r.price]; if(r.type !== 'Sommar' || r.status !== 'hemma') a.push(r.type); if(r.status !== 'hemma') a.push(r.status); return '  ' + JSON.stringify(a);
+    }).join(',\n') + '\n];';
+  }
+  function setTiresDirty(v){ tiresDirty = v; tiresSave.disabled = !v; if(v){ tiresMsg.className = 'msg'; tiresMsg.textContent = ''; } }
+
+  function select(options, value){
+    var s = document.createElement('select');
+    options.forEach(function(o){ var op = document.createElement('option'); op.value = o[0]; op.textContent = o[1]; s.appendChild(op); });
+    s.value = value; return s;
+  }
+  function tireRow(r){
+    var tr = document.createElement('tr');
+    function cell(el){ var td = document.createElement('td'); td.appendChild(el); tr.appendChild(td); return el; }
+    function input(key, cls){
+      var i = document.createElement('input'); i.value = r[key] === undefined ? '' : r[key]; if(cls) i.className = cls;
+      i.addEventListener('input', function(){ r[key] = key === 'price' ? i.value : i.value; tr.classList.add('changed'); tr.classList.remove('bad'); setTiresDirty(true); });
+      return cell(i);
+    }
+    input('dim').placeholder = '205/55R16';
+    var pr = input('price', 'price'); pr.inputMode = 'numeric'; pr.placeholder = 'kr';
+    input('brand').placeholder = 'Märke';
+    var ty = cell(select([['Sommar', 'Sommar'], ['Vinter', 'Vinter']], r.type));
+    ty.addEventListener('change', function(){ r.type = ty.value; tr.classList.add('changed'); setTiresDirty(true); });
+    var st = cell(select(STATUS, r.status));
+    st.addEventListener('change', function(){ r.status = st.value; tr.classList.add('changed'); setTiresDirty(true); });
+    var del = document.createElement('button'); del.type = 'button'; del.className = 'del'; del.textContent = 'Ta bort';
+    del.addEventListener('click', function(){ tires.splice(tires.indexOf(r), 1); tr.remove(); setTiresDirty(true); });
+    cell(del);
+    r._tr = tr;
+    return tr;
+  }
+  function renderTires(){
+    tireRows.textContent = '';
+    tires.forEach(function(r){ tireRows.appendChild(tireRow(r)); });
+    filterTires();
+  }
+  function filterTires(){
+    var q = tireSearch.value.trim().toLowerCase().replace(/\s+/g, '');
+    tires.forEach(function(r){
+      var hay = (String(r.dim) + String(r.brand)).toLowerCase().replace(/\s+/g, '');
+      r._tr.hidden = !!q && hay.indexOf(q) < 0;
+    });
+  }
+  function loadTires(){
+    tireRows.textContent = ''; setTiresDirty(false); tireSearch.value = '';
+    tiresMsg.className = 'msg'; tiresMsg.textContent = 'Laddar…';
+    fetchRaw('dack.html').then(function(r){
+      tires = parseTires(r.text); renderTires();
+      tiresMsg.textContent = tires.length + ' däck i listan.';
+    }).catch(function(){ tiresMsg.className = 'msg err'; tiresMsg.textContent = 'Kunde inte hämta däcklistan. Försök igen om en stund.'; });
+  }
+
+  tiresBtn.addEventListener('click', function(){
+    if(dirty && !confirm('Du har ändringar som inte är sparade. Vill du slänga dem?')) return;
+    if(dirty){ dirty = false; setDirty(false); if(cur) openPage(cur.file); }
+    tiresPanel.hidden = false;
+    loadTires();
+  });
+  tireSearch.addEventListener('input', filterTires);
+  document.getElementById('tireAdd').addEventListener('click', function(){
+    var r = {brand: '', dim: '', price: '', type: 'Sommar', status: 'hemma'};
+    tires.unshift(r);
+    var tr = tireRow(r); tr.classList.add('changed');
+    tireRows.insertBefore(tr, tireRows.firstChild);
+    tireSearch.value = ''; filterTires();
+    tr.querySelector('input').focus();
+    setTiresDirty(true);
+  });
+  document.getElementById('tiresClose').addEventListener('click', function(){
+    if(tiresDirty && !confirm('Du har ändrat priser utan att spara. Vill du stänga ändå?')) return;
+    tiresPanel.hidden = true;
+  });
+  tiresSave.addEventListener('click', function(){
+    var bad = 0;
+    tires.forEach(function(r){
+      r.dim = String(r.dim).trim().toUpperCase().replace(/\s+/g, '');
+      r.brand = String(r.brand).trim();
+      var p = parseInt(String(r.price).replace(/\D/g, ''), 10);
+      var ok = r.dim && r.brand && p > 0;
+      if(ok) r.price = p;
+      r._tr.classList.toggle('bad', !ok);
+      if(!ok) bad++;
+    });
+    if(bad){ tireSearch.value = ''; filterTires(); tiresMsg.className = 'msg err'; tiresMsg.textContent = 'Fyll i dimension, märke och pris på de röda raderna.'; return; }
+    tiresSave.disabled = true;
+    tiresMsg.className = 'msg'; tiresMsg.textContent = 'Sparar…';
+    fetchRaw('dack.html').then(function(r){
+      var block = tiresBlock(tires);
+      var text = r.text.replace(TIRE_RE, function(){ return block; });
+      if(text === r.text){ tiresMsg.textContent = 'Inget har ändrats.'; return; }
+      return commit('dack.html', text, r.sha).then(function(){
+        setTiresDirty(false);
+        tires.forEach(function(x){ x._tr.classList.remove('changed'); });
+        tiresMsg.className = 'msg ok'; tiresMsg.textContent = 'Sparat! Syns på hemsidan om några minuter.';
+        if(cur && cur.file === 'dack.html') openPage('dack.html');
+      });
+    }).catch(function(err){
+      tiresSave.disabled = false;
+      var msg = String(err && err.message || err);
+      tiresMsg.className = 'msg err';
+      if(msg === 'Fel kod'){ sessionStorage.removeItem(PIN_KEY); tiresMsg.textContent = 'Fel kod. Ladda om sidan och skriv koden igen.'; }
+      else if(msg.indexOf('ändrats sedan') >= 0) tiresMsg.textContent = 'Listan har ändrats under tiden. Stäng och öppna Däckpriser igen.';
+      else tiresMsg.textContent = 'Kunde inte spara: ' + msg;
+    });
+  });
 
   historyBtn.addEventListener('click', function(){
     if(dirty && !confirm('Du har ändringar som inte är sparade. Vill du slänga dem?')) return;
