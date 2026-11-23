@@ -470,6 +470,11 @@ body.modal-open{overflow:hidden}
 .legal p,.legal li{margin:0 0 10px}
 .legal ul{padding-left:1.2em;margin:0 0 10px}
 :root{color-scheme:light}
+.req{color:var(--red);margin-left:2px}
+.mail-status{text-align:center}
+.mail-done{text-align:center}
+.modal-card .field{max-width:340px;margin-left:auto;margin-right:auto}
+.modal-card .field input,.modal-card .field textarea{max-width:340px}
 html,body{background:#fff;color:#1d1f21}</style>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.png" sizes="any">
@@ -651,7 +656,7 @@ html,body{background:#fff;color:#1d1f21}</style>
         <dt>Öppettider</dt><dd class="week"><span>Måndag–fredag</span><span class="t" data-info="oppettider_vardag">07:30–16:00</span><span>Lördag</span><span class="t" data-info="oppettider_lordag">Stängt</span><span>Söndag</span><span class="t" data-info="oppettider_sondag">Stängt</span></dd>
       </dl>
       <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Falev%C3%A4gen+1+863+33+Sundsbruk" target="_blank" rel="noopener">Öppna i kartor</a>
-      <a class="btn btn-ghost" href="tjanster.html#fraga">Skicka en förfrågan</a>
+      <button class="btn btn-ghost" type="button" data-forfragan>Skicka en förfrågan</button>
       <iframe class="map-embed" src="https://maps.google.com/maps?q=Falev%C3%A4gen%201%2C%20863%2033%20Sundsbruk&amp;output=embed" title="Karta till Birsta Bilgummi, Falevägen 1, Sundsbruk" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </section>
@@ -661,6 +666,41 @@ html,body{background:#fff;color:#1d1f21}</style>
       <button class="modal-close" type="button" data-close="" aria-label="Stäng">×</button>
       <div class="modal-body"></div>
       <button class="btn btn-light modal-skip" type="button" data-close="">Stäng</button>
+    </div>
+  </div>
+
+  <div class="modal" id="mailModal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mailModalTitle">
+      <button class="modal-close" type="button" data-close aria-label="Stäng">×</button>
+      <h3 id="mailModalTitle">Skicka en förfrågan</h3>
+      <form id="mailForm" novalidate>
+        <p class="lead">Skriv vad det gäller, så hör vi av oss så snart vi kan.</p>
+        <div class="field">
+          <label for="mName">Namn <span class="req" aria-hidden="true">*</span></label>
+          <input id="mName" name="name" type="text" autocomplete="name" required>
+          <p class="err" id="mNameErr"></p>
+        </div>
+        <div class="field">
+          <label for="mPhone">Telefon <span class="req" aria-hidden="true">*</span></label>
+          <input id="mPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
+          <p class="err" id="mPhoneErr"></p>
+        </div>
+        <div class="field">
+          <label for="mEmail">E-postadress <span class="req" aria-hidden="true">*</span></label>
+          <input id="mEmail" name="email" type="email" autocomplete="email" required>
+          <p class="err" id="mEmailErr"></p>
+        </div>
+        <div class="field">
+          <label for="mMsg">Meddelande</label>
+          <textarea id="mMsg" name="message" maxlength="2000"></textarea>
+        </div>
+        <p class="err mail-status" id="mStatus" role="status"></p>
+        <button class="btn" type="submit" id="mSend">Skicka</button>
+      </form>
+      <div class="mail-done" id="mailDone" hidden>
+        <p class="lead">Ditt meddelande är skickat. Vi hör av oss så snart vi kan.</p>
+        <button class="btn" type="button" data-close>Stäng</button>
+      </div>
     </div>
   </div>
 </main>
@@ -822,6 +862,70 @@ var PREVIEW_LINKS = {};
   Array.prototype.forEach.call(document.querySelectorAll('a[href]'),function(a){
     var h=a.getAttribute('href').split('?')[0];
     if(PREVIEW_LINKS[h]){ a.href=PREVIEW_LINKS[h]; a.target='_blank'; a.rel='noopener'; }
+  });
+})();
+
+/* ===== Skicka en förfrågan: ruta med formulär som skickas direkt till oss ===== */
+(function(){
+  var modal=document.getElementById('mailModal'), openers=document.querySelectorAll('[data-forfragan]');
+  if(!modal||!openers.length) return;
+  var f=document.getElementById('mailForm'), done=document.getElementById('mailDone'),
+      name=document.getElementById('mName'), phone=document.getElementById('mPhone'),
+      email=document.getElementById('mEmail'), msg=document.getElementById('mMsg'),
+      send=document.getElementById('mSend'), status=document.getElementById('mStatus'),
+      errs={name:document.getElementById('mNameErr'),phone:document.getElementById('mPhoneErr'),email:document.getElementById('mEmailErr')},
+      title=document.getElementById('mailModalTitle'),
+      last=null, url=(window.BIRSTA_API_URL||''), TEL='060-56 88 88', MAIL='info@birstabilgummi.se';
+  function focusables(){ return Array.prototype.slice.call(modal.querySelectorAll('button,input,textarea,a[href]')).filter(function(x){ return !x.hidden&&x.offsetParent!==null; }); }
+  function open(){
+    last=document.activeElement;
+    f.hidden=false; done.hidden=true; status.textContent=''; send.disabled=false; title.textContent='Skicka en förfrågan';
+    modal.hidden=false; document.body.classList.add('modal-open');
+    name.focus();
+  }
+  function close(){
+    modal.hidden=true; document.body.classList.remove('modal-open');
+    if(last&&last.focus){ try{ last.focus(); }catch(e){} }
+  }
+  [[name,'name'],[phone,'phone'],[email,'email']].forEach(function(x){ x[0].addEventListener('input',function(){ errs[x[1]].textContent=''; }); });
+  Array.prototype.forEach.call(openers,function(b){ b.addEventListener('click',function(e){ e.preventDefault(); open(); }); });
+  modal.addEventListener('click',function(e){
+    if(e.target===modal||e.target.closest('[data-close]')) close();
+  });
+  document.addEventListener('keydown',function(e){
+    if(modal.hidden) return;
+    if(e.key==='Escape'){ close(); return; }
+    if(e.key==='Tab'){
+      var fs=focusables(); if(!fs.length) return;
+      var first=fs[0], lastEl=fs[fs.length-1];
+      if(e.shiftKey&&document.activeElement===first){ e.preventDefault(); lastEl.focus(); }
+      else if(!e.shiftKey&&document.activeElement===lastEl){ e.preventDefault(); first.focus(); }
+    }
+  });
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var n=name.value.trim(), p=phone.value.trim(), m=email.value.trim(), t=msg.value.trim(), first=null;
+    errs.name.textContent=''; errs.phone.textContent=''; errs.email.textContent=''; status.textContent='';
+    if(!n){ errs.name.textContent='Skriv ditt namn.'; first=name; }
+    var digits=p.replace(/\D/g,'');
+    if(digits.length<8||digits.length>13){ errs.phone.textContent='Skriv ditt telefonnummer.'; first=first||phone; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)){ errs.email.textContent='Skriv en giltig e-postadress.'; first=first||email; }
+    if(first){ first.focus(); return; }
+    var text='Namn: '+n+'\nTelefon: '+p+'\nE-post: '+m+'\n\nMeddelande:\n'+(t||'-');
+    if(!url){
+      window.location.href='mailto:'+MAIL+'?subject='+encodeURIComponent('Förfrågan från hemsidan')+'&body='+encodeURIComponent(text);
+      return;
+    }
+    var data={service:'Förfrågan från hemsidan',name:n,phone:p,email:m,message:text};
+    send.disabled=true; status.textContent='Skickar...';
+    fetch(url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)})
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        if(!(j&&j.ok)) throw new Error('fel');
+        f.reset(); f.hidden=true; done.hidden=false; status.textContent=''; title.textContent='Tack!';
+        var b=done.querySelector('button'); if(b) b.focus();
+      })
+      .catch(function(){ status.textContent='Det gick inte att skicka just nu. Ring oss på '+TEL+' eller mejla '+MAIL+'.'; send.disabled=false; });
   });
 })();
 </script>
