@@ -656,7 +656,7 @@ html,body{background:#fff;color:#1d1f21}</style>
         <dt>Öppettider</dt><dd class="week"><span>Måndag–fredag</span><span class="t" data-info="oppettider_vardag">07:30–16:00</span><span>Lördag</span><span class="t" data-info="oppettider_lordag">Stängt</span><span>Söndag</span><span class="t" data-info="oppettider_sondag">Stängt</span></dd>
       </dl>
       <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Falev%C3%A4gen+1+863+33+Sundsbruk" target="_blank" rel="noopener">Öppna i kartor</a>
-      <button class="btn btn-ghost" type="button" data-forfragan>Skicka en förfrågan</button>
+      <button class="btn btn-ghost" type="button" data-forfragan>Mejla oss</button>
       <iframe class="map-embed" src="https://maps.google.com/maps?q=Falev%C3%A4gen%201%2C%20863%2033%20Sundsbruk&amp;output=embed" title="Karta till Birsta Bilgummi, Falevägen 1, Sundsbruk" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </section>
@@ -672,7 +672,7 @@ html,body{background:#fff;color:#1d1f21}</style>
   <div class="modal" id="mailModal" hidden>
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mailModalTitle">
       <button class="modal-close" type="button" data-close aria-label="Stäng">×</button>
-      <h3 id="mailModalTitle">Skicka en förfrågan</h3>
+      <h3 id="mailModalTitle">Mejla oss</h3>
       <form id="mailForm" novalidate>
         <p class="lead">Skriv vad det gäller, så hör vi av oss så snart vi kan.</p>
         <div class="field">
@@ -865,7 +865,7 @@ var PREVIEW_LINKS = {};
   });
 })();
 
-/* ===== Skicka en förfrågan: ruta med formulär som skickas direkt till oss ===== */
+/* ===== Mejla oss: ruta med formulär som skickas direkt till oss ===== */
 (function(){
   var modal=document.getElementById('mailModal'), openers=document.querySelectorAll('[data-forfragan]');
   if(!modal||!openers.length) return;
@@ -879,7 +879,7 @@ var PREVIEW_LINKS = {};
   function focusables(){ return Array.prototype.slice.call(modal.querySelectorAll('button,input,textarea,a[href]')).filter(function(x){ return !x.hidden&&x.offsetParent!==null; }); }
   function open(){
     last=document.activeElement;
-    f.hidden=false; done.hidden=true; status.textContent=''; send.disabled=false; title.textContent='Skicka en förfrågan';
+    f.hidden=false; done.hidden=true; status.textContent=''; send.disabled=false; title.textContent='Mejla oss';
     modal.hidden=false; document.body.classList.add('modal-open');
     name.focus();
   }

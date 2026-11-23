@@ -554,9 +554,9 @@ html,body{background:#fff;color:#1d1f21}</style>
   <section class="book" id="kontakta">
     <div class="wrap">
       <div class="steps">
-        <h2>Ring eller skicka en förfrågan</h2>
+        <h2>Ring eller mejla oss</h2>
         <p class="lead">Berätta vad det gäller, så ger vi dig pris och en tid som passar.</p>
-        <p class="alt-call"><a class="btn" href="tel:+4660568888">Ring 060-56 88 88</a> <button class="btn btn-light" type="button" data-forfragan>Skicka en förfrågan</button></p>
+        <p class="alt-call"><a class="btn" href="tel:+4660568888">Ring 060-56 88 88</a> <button class="btn btn-light" type="button" data-forfragan>Mejla oss</button></p>
         <p class="alt-call">Eller mejla <a href="mailto:info@birstabilgummi.se">info@birstabilgummi.se</a>.</p>
       </div>
     </div>
@@ -565,7 +565,7 @@ html,body{background:#fff;color:#1d1f21}</style>
   <div class="modal" id="mailModal" hidden>
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mailModalTitle">
       <button class="modal-close" type="button" data-close aria-label="Stäng">×</button>
-      <h3 id="mailModalTitle">Skicka en förfrågan</h3>
+      <h3 id="mailModalTitle">Mejla oss</h3>
       <form id="mailForm" novalidate>
         <p class="lead">Skriv vad det gäller, så hör vi av oss så snart vi kan.</p>
         <div class="field">
@@ -717,7 +717,7 @@ var PREVIEW_LINKS = {};
   });
 })();
 
-/* ===== Skicka en förfrågan: ruta med formulär som skickas direkt till oss ===== */
+/* ===== Mejla oss: ruta med formulär som skickas direkt till oss ===== */
 (function(){
   var modal=document.getElementById('mailModal'), openers=document.querySelectorAll('[data-forfragan]');
   if(!modal||!openers.length) return;
@@ -731,7 +731,7 @@ var PREVIEW_LINKS = {};
   function focusables(){ return Array.prototype.slice.call(modal.querySelectorAll('button,input,textarea,a[href]')).filter(function(x){ return !x.hidden&&x.offsetParent!==null; }); }
   function open(){
     last=document.activeElement;
-    f.hidden=false; done.hidden=true; status.textContent=''; send.disabled=false; title.textContent='Skicka en förfrågan';
+    f.hidden=false; done.hidden=true; status.textContent=''; send.disabled=false; title.textContent='Mejla oss';
     modal.hidden=false; document.body.classList.add('modal-open');
     name.focus();
   }

@@ -626,7 +626,7 @@ html,body{background:#fff;color:#1d1f21}</style>
   <div class="modal" id="mailModal" hidden>
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mailModalTitle">
       <button class="modal-close" type="button" data-close aria-label="Stäng">×</button>
-      <h3 id="mailModalTitle">Skicka en förfrågan</h3>
+      <h3 id="mailModalTitle">Mejla oss</h3>
       <form id="mailForm" novalidate>
         <p class="lead">Skriv vad det gäller, så hör vi av oss så snart vi kan.</p>
         <div class="field">
@@ -1171,7 +1171,7 @@ function orderForm(dim){
   }).catch(function(){});
 })();
 
-/* ===== Skicka en förfrågan: ruta med formulär som skickas direkt till oss ===== */
+/* ===== Mejla oss: ruta med formulär som skickas direkt till oss ===== */
 (function(){
   var modal=document.getElementById('mailModal'), openers=document.querySelectorAll('[data-forfragan]');
   if(!modal||!openers.length) return;
@@ -1185,7 +1185,7 @@ function orderForm(dim){
   function focusables(){ return Array.prototype.slice.call(modal.querySelectorAll('button,input,textarea,a[href]')).filter(function(x){ return !x.hidden&&x.offsetParent!==null; }); }
   function open(){
     last=document.activeElement;
-    f.hidden=false; done.hidden=true; status.textContent=''; send.disabled=false; title.textContent='Skicka en förfrågan';
+    f.hidden=false; done.hidden=true; status.textContent=''; send.disabled=false; title.textContent='Mejla oss';
     modal.hidden=false; document.body.classList.add('modal-open');
     name.focus();
   }
